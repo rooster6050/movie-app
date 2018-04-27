@@ -36,5 +36,28 @@ public class MovieDBRepository implements IMovieRepository {
 		LOGGER.info("MovieDBRepository getAMovie");
 		return util.getJSONForObject(manager.find(Movie.class, id));
 	}
+	
+	@Override
+	public String createMovie(String movie)
+	{
+		LOGGER.info("MovieDBRepository createMovie");
+		manager.persist(util.getObjectForJSON(movie, Movie.class));
+		return "Successfully added";
+	}
+	
+	@Override
+	public String deleteMovie(long id)
+	{
+		LOGGER.info("In MovieDBRepository deleteMovie");
+		Movie mv = manager.find(Movie.class, id);
+		if(mv != null)
+		{
+			manager.remove(manager.find(Movie.class, id));
+			return "Deleted successfully";
+		}
+		else return "Movie not found";
+
+		
+	}
 
 }

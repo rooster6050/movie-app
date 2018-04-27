@@ -1,7 +1,9 @@
 package com.qa.interoprability;
 
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -28,4 +30,19 @@ public class MovieEndpoint {
 		public String getAMovie(@PathParam("id") Long id) {
 			return service.getAMovie(id);
 		}
+	
+	@Path("/json")
+	@POST
+	@Produces({ "application/json" })
+	public String addMovie(String movie) {
+		return service.createMovie(movie);
+	}
+
+	@Path("/json/{id}")
+	@DELETE
+	@Produces({ "application/json" })
+	public String deleteMovie(@PathParam("id") Long id) {
+		return service.deleteMovie(id);
+
+	}
 }
